@@ -8,6 +8,7 @@ use Exception;
 use Wirgen\Keitaro\Model\AffiliateNetwork;
 use Wirgen\Keitaro\Model\Campaign;
 use Wirgen\Keitaro\Model\Group;
+use Wirgen\Keitaro\Model\Landing;
 use Wirgen\Keitaro\Model\Report;
 use Wirgen\Keitaro\Model\User;
 
@@ -430,6 +431,32 @@ class Keitaro
 
     /* * * * * * * * * * Landing Pages * * * * * * * * * */
 
+    /**
+     * Update a Landing
+     *
+     * @param array $data
+     * @return Landing
+     * @throws Exception
+     */
+    public function updateLanding(int $id, array $data): Landing
+    {
+        return new Landing(
+            $this->request('put', "/landing_pages/$id", array_filter($data))
+        );
+    }
+    /**
+     * Create a new Landing
+     *
+     * @param array $data
+     * @return Landing
+     * @throws Exception
+     */
+    public function createLanding(array $data): Landing
+    {
+        return new Landing(
+            $this->request('post', "/landing_pages", array_filter($data))
+        );
+    }
     /* * * * * * * * * * Logs * * * * * * * * * */
 
     /* * * * * * * * * * Offers * * * * * * * * * */
