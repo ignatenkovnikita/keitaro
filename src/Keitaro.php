@@ -9,7 +9,9 @@ use Wirgen\Keitaro\Model\AffiliateNetwork;
 use Wirgen\Keitaro\Model\Campaign;
 use Wirgen\Keitaro\Model\Group;
 use Wirgen\Keitaro\Model\Landing;
+use Wirgen\Keitaro\Model\Offer;
 use Wirgen\Keitaro\Model\Report;
+use Wirgen\Keitaro\Model\Stream;
 use Wirgen\Keitaro\Model\User;
 
 /**
@@ -211,6 +213,19 @@ class Keitaro
             $this->request('get', "/campaigns/$id")
         );
     }
+    /**
+     * Get a Campaign Streams
+     *
+     * @param int $id
+     * @return Campaign
+     * @throws Exception
+     */
+    public function getCampaignStreams(int $id): array
+    {
+        return array_map(static function ($item) {
+            return new Stream($item);
+        }, $this->request('get', "/campaigns/$id/streams"));
+    }
 
     /**
      * Update a Campaign
@@ -314,6 +329,20 @@ class Keitaro
     }
 
     /* * * * * * * * * * Streams * * * * * * * * * */
+
+    /**
+     * Create a new Stream
+     *
+     * @param array $data
+     * @return Landing
+     * @throws Exception
+     */
+    public function createStream(array $data): Stream
+    {
+        return new Stream(
+            $this->request('post', "/streams", array_filter($data))
+        );
+    }
 
     /* * * * * * * * * * Clicks * * * * * * * * * */
 
@@ -460,6 +489,33 @@ class Keitaro
     /* * * * * * * * * * Logs * * * * * * * * * */
 
     /* * * * * * * * * * Offers * * * * * * * * * */
+
+    /**
+     * Create a new Offer
+     *
+     * @param array $data
+     * @return Landing
+     * @throws Exception
+     */
+    public function createOffer(array $data): Offer
+    {
+        return new Offer(
+            $this->request('post', "/offers", array_filter($data))
+        );
+    }
+    /**
+     * Update a Offer
+     *
+     * @param array $data
+     * @return Landing
+     * @throws Exception
+     */
+    public function updateOffer(int $id,array $data): Offer
+    {
+        return new Offer(
+            $this->request('put', "/offers/$id", array_filter($data))
+        );
+    }
 
     /* * * * * * * * * * Reports * * * * * * * * * */
 
